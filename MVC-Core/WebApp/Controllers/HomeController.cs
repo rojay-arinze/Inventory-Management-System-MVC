@@ -9,9 +9,5 @@ namespace WebApp.Controllers
             return "Hello World";
         }
 
-        public string Error()
-        {
-            return "Error LOL";
-        }
     }
 }
