@@ -1,9 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
+/*
+#4 Inject the service needed by the MapControllerRoute method to function properly. This has to be done before the var app = builder.Build()*/
+builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
-/*
-#4 Inject the service needed by the MapControllerRoute method to function properly*/
-builder.Services.AddControllersWithViews();
+
 //#1 add routing middleware so that the app can handle routes
 app.UseRouting();
 
