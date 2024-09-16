@@ -4,6 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
+//Add middleware to allow for the use of static files like .css / .js files
+app.UseStaticFiles();
 
 //#1 add routing middleware so that the app can handle routes
 app.UseRouting();
