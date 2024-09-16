@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -12,15 +13,9 @@ namespace WebApp.Controllers
         /*Create an Action method to handle the request made when a user clicks on any item that has edit in the href attribute of an anchor tag*/
         public IActionResult Edit(int? id) //pass the id of the clicked item over to the edit method
         {
-            if(id.HasValue)
-            {
-                return new ContentResult { Content = id.ToString() };  //Populate the web page with the id of the clicked item.
+            var category = new Category { CategoryId = id.HasValue ? id.Value : 0 }; //Create an instance of category, if the id is not null, the category id is the id else its 0
 
-            }
-            else
-            {
-                return new ContentResult { Content = "null content" };
-            }
+            return View(category); //bind the view with the model
         }
     }
 }
