@@ -1,17 +1,15 @@
-﻿
+﻿@using WebApp.Models
+@model List<Category>
 @section title{
         <h1>Categories</h1>
 
 }
-<p>
-        We will display categories here
-    </p>
 
     <ul>
+        @foreach(var category in Model)
+    {
         <li>
-            <a href="/categories/edit/1">Beverages</a> @* Set up the href following the pattern we set up as the default pattern in the Program.cs file, and give it a temporary static ID *@
+            @category.Name
         </li>
-        <li>
-            <a href="/categories/edit/2">Meat</a> @* Set up the href following the pattern we set up as the default pattern in the Program.cs file, and give it a temporary static ID *@
-        </li>
-    </ul>
+    }
+</ul>
