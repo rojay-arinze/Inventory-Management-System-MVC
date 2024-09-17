@@ -1,5 +1,6 @@
 ﻿namespace WebApp.Models
 {
+    //Static in memory repository for the testing environment
     public static class CategoriesRepository
     {
 
