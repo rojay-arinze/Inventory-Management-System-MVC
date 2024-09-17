@@ -31,5 +31,21 @@ namespace WebApp.Controllers
             }
             return View(category); //take the user back to the same page with the invalid model, but displaying a validatin error message
         }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                CategoriesRepository.AddCategory(category);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
     }
 }
