@@ -18,5 +18,13 @@ namespace WebApp.Controllers
 
             return View(category); //bind the view with the model
         }
+
+        //Create an HTTPPost action method to receive the changes. By default action methods would be HTTPGet
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            CategoriesRepository.UpdateCategory(category.CategoryId, category);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
