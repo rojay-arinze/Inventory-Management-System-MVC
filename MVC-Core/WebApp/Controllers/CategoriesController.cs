@@ -14,6 +14,7 @@ namespace WebApp.Controllers
         /*Create an Action method to handle the request made when a user clicks on any item that has edit in the href attribute of an anchor tag*/
         public IActionResult Edit(int? id) //pass the id of the clicked item over to the edit method
         {
+            ViewBag.Action = "edit";
             var category = CategoriesRepository.GetCategoryById(id.HasValue?id.Value:0); //grab the category from the in memory repository. If that Id is valid, use zero instead.
 
             return View(category); //bind the view with the model
@@ -34,6 +35,7 @@ namespace WebApp.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Action = "add"; //use this to help render partial views
             return View();
         }
 
