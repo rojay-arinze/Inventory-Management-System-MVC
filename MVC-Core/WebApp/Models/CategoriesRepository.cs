@@ -34,7 +34,7 @@
         {
             if(id != category.CategoryId) return;
 
-            var categoryToUpdate = _categories.FirstOrDefault(x => x.CategoryId == id); ;
+            var categoryToUpdate = _categories.FirstOrDefault(x => x.CategoryId == id); 
             if(categoryToUpdate != null)
             {
                 categoryToUpdate.Name = category.Name;
@@ -44,8 +44,8 @@
 
         public static void DeleteCategory(int id)
         {
-            var category = GetCategoryById(id);
-            if(category != null)
+            var category = _categories.FirstOrDefault(x => x.CategoryId == id);
+            if (category != null)
             {
                 _categories.Remove(category);
             }
