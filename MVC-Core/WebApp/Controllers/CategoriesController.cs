@@ -14,7 +14,7 @@ namespace WebApp.Controllers
         /*Create an Action method to handle the request made when a user clicks on any item that has edit in the href attribute of an anchor tag*/
         public IActionResult Edit(int? id) //pass the id of the clicked item over to the edit method
         {
-            var category = new Category { CategoryId = id.HasValue ? id.Value : 0 }; //Create an instance of category, if the id is not null, the category id is the id else its 0
+            var category = CategoriesRepository.GetCategoryById(id.HasValue?id.Value:0); //grab the category from the in memory repository. If that Id is valid, use zero instead.
 
             return View(category); //bind the view with the model
         }
