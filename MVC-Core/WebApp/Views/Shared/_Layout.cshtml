@@ -42,5 +42,6 @@ We use this template to render every page's contents. *@
             @RenderBody()
             </div>
         </div>
+        @await RenderSectionAsync("Scripts", required:false)
     </body>
     </html>
