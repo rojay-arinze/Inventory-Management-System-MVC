@@ -7,7 +7,8 @@ namespace WebApp.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var categories = CategoriesRepository.GetCategories(); //load the categories
+            return View(categories); //bind the model to the view
         }
 
         /*Create an Action method to handle the request made when a user clicks on any item that has edit in the href attribute of an anchor tag*/
