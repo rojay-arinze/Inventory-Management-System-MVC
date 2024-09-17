@@ -23,8 +23,13 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
+            if(ModelState.IsValid) //if the model is not valid based on the validation that we implemented, dont run the code inside the backets. If it is, run it.
+            {
+
             CategoriesRepository.UpdateCategory(category.CategoryId, category);
             return RedirectToAction(nameof(Index));
+            }
+            return View(category); //take the user back to the same page with the invalid model, but displaying a validatin error message
         }
     }
 }
