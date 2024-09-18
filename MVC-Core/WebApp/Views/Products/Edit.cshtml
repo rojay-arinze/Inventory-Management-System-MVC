@@ -1,5 +1,8 @@
 ﻿@model ProductViewModel //Tell the view what model it should expect to recieve
 
+@section title {
+    <h3>Product: @Model.Product.Name</h3>
+}
 
 @{
     string action = ViewBag.Action ?? string.Empty;

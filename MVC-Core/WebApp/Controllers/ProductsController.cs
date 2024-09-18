@@ -58,5 +58,10 @@ namespace WebApp.Controllers
             return View(productVM);
         }
 
+        public  IActionResult  Delete (int id)
+        {
+            ProductsRepository.DeleteProduct(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
