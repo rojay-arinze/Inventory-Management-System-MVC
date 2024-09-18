@@ -23,8 +23,8 @@
                     <td>@product.Name</td>
                     <td>@product.Quantity</td>
                     <td>@product.Price</td>
-                    <td><a class="btn btn-link" asp-controller="categories" asp-action="edit" asp-route-id="@product.ProductId">Edit</a></td> @* use tag helpers to generate a url *@
-                    <td><a class="btn btn-link" asp-controller="categories" asp-action="delete" asp-route-id="@product.ProductId" onclick="return confirmDelete()">Delete</a></td> @* use tag helpers to generate a url *@
+                    <td><a class="btn btn-link" asp-controller="products" asp-action="edit" asp-route-id="@product.ProductId">Edit</a></td> @* use tag helpers to generate a url *@
+                    <td><a class="btn btn-link" asp-controller="products" asp-action="delete" asp-route-id="@product.ProductId" onclick="return confirmDelete()">Delete</a></td> @* use tag helpers to generate a url *@
                     <td></td>
                     <td></td>
                 </tr>
