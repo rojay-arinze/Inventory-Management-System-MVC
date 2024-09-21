@@ -1,70 +1,22 @@
-﻿@model ProductViewModel //Tell the view what model it should expect to recieve
+﻿@model IEnumerable<Product>
 
+@if(Model != null && Model.Count() > 0){
 
-@{
-    string action = ViewBag.Action ?? string.Empty;
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-
-<form method="post" asp-controller="products" asp-action="@action">
-    @if (action?.ToLower() == "edit")
-    {
-        <input type="hidden" asp-for="Product.ProductId" /> @* We only want to render this element if the action method is edit *@
-    }
-    <div class="text-danger" asp-validation-summary="All"></div>  @* Display all validation error messages *@
-    <div class="row mb-3">
-        <div class="col-2">
-            <label asp-for="Product.CategoryId"></label>
-        </div>
-        <div class="col-6">
-            @*             <input type="text" asp-for="CategoryId" class="form-control" />
-            *@<select asp-for="Product.CategoryId" class="form-control">
-                <option>- Please Select -</option>
-                @if (Model.Categories != null && Model.Categories.Count() > 0)
-                {
-
-                    @foreach (var category in Model.Categories) @* loop through each category, get the categoryid and display the category name *@
-                    {
-                        <option value="@category.CategoryId">
-                            @category.Name
-                        </option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-2">
-            <label asp-for="Product.Name"></label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="Product.Name" class="form-control" />
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-2">
-            <label asp-for="Product.Quantity"></label>
-        </div>
-        <div class="col-6">
-            <input type="number" asp-for="Product.Quantity" class="form-control" min="1" />
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-2">
-            <label asp-for="Product.Price"></label>
-        </div>
-        <div class="col-6">
-            <input type="number" asp-for="Product.Price" class="form-control" step="any" /> @* if step = "any" isn't used only whole numbers will be allowed *@
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-2">
-            <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-        <div class="col-6">
-        </div>
-    </div>
-
-
-</form>
