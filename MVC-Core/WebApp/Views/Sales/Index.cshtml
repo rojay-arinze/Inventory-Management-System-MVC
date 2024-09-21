@@ -29,7 +29,7 @@
             }
         </select>
         <br/>
-        <div>
+        <div id="productsPartial">
             @*Product List*@
         </div>
         <br/>
@@ -42,3 +42,23 @@
         
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            //Handle category selection
+            $("#SelectedCategoryId").on("change", function () { //when there's a change on the html element with that #id, run the function
+                $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: $(this).val() }); //the function loads the 
+                //partial view in the products controller into the dive with the #id, and passes the category id of the selected item
+
+            })
+
+            //Handle product selection
+            $("#productsPartial").on("click", ".product-row", function () {
+                //Remove highlight from the previous row
+                $(".product-row").removeClass("highlight");
+                $(this).addClass("highlight");
+            });
+        });
+    </script>
+}
