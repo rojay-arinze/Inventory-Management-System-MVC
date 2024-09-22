@@ -44,7 +44,8 @@
                 Price = price,
                 BeforeQty = beforeQty,
                 SoldQty = soldQty,
-                CashierName = cashierName
+                CashierName = cashierName,
+                TimeStamp = DateTime.Now.Date
             };
 
             if (_transactions != null && _transactions.Count()>0) 
