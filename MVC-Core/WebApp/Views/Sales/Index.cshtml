@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-4">
         @*Category Selection*@
-       <select asp-for="SelectedCategoryId">
+       <select asp-for="SelectedCategoryId" class="form-control">
            <option>- Please Select Category -</option>
             @if (Model.Categories != null && Model.Categories.Count() >0)
             {
@@ -33,23 +33,43 @@
             @*Product List*@
         </div>
         <br/>
-        <div>
+        <div id="salesPartial">
             @*Product Details*@
         </div>
+        <br/>
+        <div >
         @*Sales form*@
+        <form method="post" asp-controller="sales" asp-action="sell" id="formSale">
+            <input asp-for="SelectedProductId" type="hidden"/>
+            <div class="form-group">
+                <label asp-for="QuantityToSell"></label>
+                <input asp-for="QuantityToSell" class="form-control" type="number" min="1"/>
+
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit"/>
+            </div>
+        </form>
     </div>
     <div class="col">
         
     </div>
 </div>
+</div>
 
 @section Scripts{
     <script>
         $(function () {
+
+            $("#formSale").hide();
+            $("#QuantityToSell").val("");
             //Handle category selection
             $("#SelectedCategoryId").on("change", function () { //when there's a change on the html element with that #id, run the function
                 $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: $(this).val() }); //the function loads the 
                 //partial view in the products controller into the dive with the #id, and passes the category id of the selected item
+                $("#salesPartial").html(""); // this line of code clears the previously selected product info
+                $("#formSale").hide();
 
             })
 
@@ -58,6 +78,20 @@
                 //Remove highlight from the previous row
                 $(".product-row").removeClass("highlight");
                 $(this).addClass("highlight");
+
+                //Get the productId from the product-Id attribute
+                var productId = $(this).attr("product-Id");
+                $("#salesPartial").load("/sales/SalesPartial", {productId: productId});
+
+                if (productId > 0) {
+                    $("#SelectedProductId").val(productId);
+                    $("#formSale").show();
+                }
+                else {
+                    $("#SelectedProductId").val("");
+                    $("#formSale").hide();
+                }
+
             });
         });
     </script>
