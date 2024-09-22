@@ -17,6 +17,7 @@
 
 <div class="row">
     <div class="col-4">
+        <div class="text-danger" asp-validation-summary="All"></div>
         @*Category Selection*@
        <select asp-for="SelectedCategoryId" class="form-control">
            <option>- Please Select Category -</option>
@@ -64,12 +65,17 @@
 
             $("#formSale").hide();
             $("#QuantityToSell").val("");
+
+            //Load products if category is already selected
+           var selectedCategoryId = $("#SelectedCategoryId").val();
+            if (selectedCategoryId > 0)
+               {
+                   loadProducts(selectedCategoryId)
+
+               }
             //Handle category selection
             $("#SelectedCategoryId").on("change", function () { //when there's a change on the html element with that #id, run the function
-                $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: $(this).val() }); //the function loads the 
-                //partial view in the products controller into the dive with the #id, and passes the category id of the selected item
-                $("#salesPartial").html(""); // this line of code clears the previously selected product info
-                $("#formSale").hide();
+                loadProducts($(this).val())
 
             })
 
@@ -94,5 +100,12 @@
 
             });
         });
+        function loadProducts(categoryId)
+        {
+            $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: categoryId }); //the function loads the
+            //partial view in the products controller into the dive with the #id, and passes the category id of the selected item
+            $("#salesPartial").html(""); // this line of code clears the previously selected product info
+            $("#formSale").hide();
+        }
     </script>
 }
