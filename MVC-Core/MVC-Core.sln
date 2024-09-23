@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntitiesLayer", "EntitiesLayer\EntitiesLayer.csproj", "{E54B0B28-7DD4-4E70-9A15-EE274187EAD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCasesLayer", "UseCasesLayer\UseCasesLayer.csproj", "{4BBA42F3-0783-467D-B865-E7188C91ECF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCasesLayer", "UseCasesLayer\UseCasesLayer.csproj", "{4BBA42F3-0783-467D-B865-E7188C91ECF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{4DA04019-C584-437E-912F-C552630C5677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{E68E8A49-A514-48D4-A392-9513C6C30412}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{E68E8A49-A514-48D4-A392-9513C6C30412}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.SQLServer", "Plugins\Plugins.DataStore.SQLServer\Plugins.DataStore.SQLServer.csproj", "{C7C832E8-8B8F-4B1B-A56C-81FE3D9A6ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,17 @@ Global
 		{E68E8A49-A514-48D4-A392-9513C6C30412}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E68E8A49-A514-48D4-A392-9513C6C30412}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E68E8A49-A514-48D4-A392-9513C6C30412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C832E8-8B8F-4B1B-A56C-81FE3D9A6ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C832E8-8B8F-4B1B-A56C-81FE3D9A6ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C832E8-8B8F-4B1B-A56C-81FE3D9A6ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C832E8-8B8F-4B1B-A56C-81FE3D9A6ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E68E8A49-A514-48D4-A392-9513C6C30412} = {4DA04019-C584-437E-912F-C552630C5677}
+		{C7C832E8-8B8F-4B1B-A56C-81FE3D9A6ACE} = {4DA04019-C584-437E-912F-C552630C5677}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9DE778C1-5F2C-406C-9471-D2117CA2245B}

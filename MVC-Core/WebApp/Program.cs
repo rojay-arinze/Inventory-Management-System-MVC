@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Plugins.DataStore.InMemory;
+using Plugins.DataStore.SQLServer;
 using UseCasesLayer.CategoriesUseCases;
 using UseCasesLayer.DataStorePluginInterfaces;
 using UseCasesLayer.Interfaces.CategoriesUseCaseInterfaces;
@@ -10,13 +12,28 @@ using UseCasesLayer.TransactionsUseCases;
 using WebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<MarketContext>(options =>
+
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MarketManagement"));
+});
 /*
 #4 Inject the service needed by the MapControllerRoute method to function properly. This has to be done before the var app = builder.Build()*/
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
-builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
-builder.Services.AddSingleton<ITransactionsRepository, TransactionsInMemoryRepository>();
+if(builder.Environment.IsEnvironment("QA"))
+{
+    builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
+    builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
+    builder.Services.AddSingleton<ITransactionsRepository, TransactionsInMemoryRepository>();
+}
+else
+{
+    builder.Services.AddTransient<ICategoryRepository, CategorySQLRepository>();
+    builder.Services.AddTransient<IProductsRepository, ProductSQLRepository>();
+    builder.Services.AddTransient<ITransactionsRepository, TransactionSQLRepository>();
+}
+
 ////Categories
 
 builder.Services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
