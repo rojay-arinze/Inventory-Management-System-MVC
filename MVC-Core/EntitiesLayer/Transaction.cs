@@ -1,4 +1,4 @@
-﻿namespace WebApp.Models
+﻿namespace EntitiesLayer
 {
     public class Transaction
     {

@@ -10,4 +10,10 @@
     <Folder Include="wwwroot\lib\bootstrap\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj" />
+    <ProjectReference Include="..\Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj" />
+    <ProjectReference Include="..\UseCasesLayer\UseCasesLayer.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using WebApp.Models;
+﻿using EntitiesLayer;
 /*This ViewModel is used to pass multiple pieces of data to the view. We needed to pass a product along with a list of categories.*/
 namespace WebApp.ViewModels
 {

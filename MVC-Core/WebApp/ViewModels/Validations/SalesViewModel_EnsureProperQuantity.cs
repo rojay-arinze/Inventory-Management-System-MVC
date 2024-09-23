@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UseCasesLayer.Interfaces.ProductsUseCaseInterfaces;
 using WebApp.Models;
 
 namespace WebApp.ViewModels.Validations
@@ -17,11 +18,16 @@ namespace WebApp.ViewModels.Validations
                 }
                 else
                 {
-                    var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-                    if (product != null) 
+                    var getProductsByIdUseCase = validationContext.GetService(typeof(IViewSelectedProductUseCase)) as IViewSelectedProductUseCase;
+                    if (getProductsByIdUseCase != null)
                     {
+                        var product = getProductsByIdUseCase.Execute(salesViewModel.SelectedProductId);
+
+                        if (product != null) {
+                        
                         if (product.Quantity < salesViewModel.QuantityToSell) {
                             return new ValidationResult($"{product.Name} only has {product.Quantity} left");
+                        }
                         }
                     }
                     else

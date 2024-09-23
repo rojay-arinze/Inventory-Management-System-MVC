@@ -72,7 +72,7 @@
            var selectedCategoryId = $("#SelectedCategoryId").val();
             if (selectedCategoryId > 0)
                {
-                   loadProducts(selectedCategoryId)
+                loadProducts(selectedCategoryId);
 
                }
             //Handle category selection
@@ -104,7 +104,7 @@
         });
         function loadProducts(categoryId)
         {
-            $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: categoryId }); //the function loads the
+            $("#productsPartial").load("/sales/ProductsByCategoryPartial", { categoryId: categoryId }); //the function loads the
             //partial view in the products controller into the dive with the #id, and passes the category id of the selected item
             $("#salesPartial").html(""); // this line of code clears the previously selected product info
             $("#formSale").hide();

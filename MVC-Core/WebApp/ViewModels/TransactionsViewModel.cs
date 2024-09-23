@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebApp.Models;
+using EntitiesLayer;
 
 namespace WebApp.ViewModels
 {

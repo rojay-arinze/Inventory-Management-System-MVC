@@ -1,11 +1,24 @@
-﻿
-using EntitiesLayer;
+﻿using EntitiesLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UseCasesLayer.DataStorePluginInterfaces;
+using UseCasesLayer.Interfaces.CategoriesUseCaseInterfaces;
 
-namespace WebApp.Models
+
+namespace Plugins.DataStore.InMemory
 {
-    public class ProductsRepository
+    public class ProductsInMemoryRepository : IProductsRepository
     {
-        private static List<Product> _products = new List<Product>()
+        private readonly ICategoryRepository _categoryRepository;
+
+        public ProductsInMemoryRepository(ICategoryRepository categoryRepository)
+        {
+            this._categoryRepository = categoryRepository;
+        }
+        private List<Product> _products = new List<Product>()
         {
             new Product { ProductId = 1, CategoryId = 1, Name = "Iced Tea", Quantity = 100, Price = 1.99 },
             new Product { ProductId = 2, CategoryId = 1, Name = "Canada Dry", Quantity = 200, Price = 1.99 },
@@ -13,36 +26,47 @@ namespace WebApp.Models
             new Product { ProductId = 4, CategoryId = 2, Name = "White Bread", Quantity = 300, Price = 1.50 }
         };
 
-        public static void AddProduct(Product product)
+        public void AddProduct(Product product)
         {
+            if(_products != null && _products.Count > 0)
+            {
             var maxId = _products.Max(x => x.ProductId);
             product.ProductId = maxId + 1;
+            }
+            else
+            {
+                product.ProductId = 1;
+            }
+            if (_products == null)
+            { 
+                _products = new List<Product>();
+            }
             _products.Add(product);
         }
 
-        public static List<Product> GetProducts(bool loadCategory= false)
-        { 
-            if(!loadCategory) return _products;
+        public IEnumerable<Product> GetProducts(bool loadCategory = false)
+        {
+            if (!loadCategory) return _products;
 
             else
             {
-                if(_products != null && _products.Count > 0)
+                if (_products != null && _products.Count > 0)
                 {
                     _products.ForEach(x =>
                     {
-                        if(x.CategoryId.HasValue)
+                        if (x.CategoryId.HasValue)
                         {
-                            x.Category = CategoriesRepository.GetCategoryById(x.CategoryId.Value);
+                            x.Category = _categoryRepository.GetCategoryById(x.CategoryId.Value);
                         }
                     }
                     );
                 }
             }
-            return _products?? new List<Product>();
+            return _products ?? new List<Product>();
         }
 
 
-        public static Product? GetProductById(int productId, bool loadCategory =false)
+        public Product? GetProductById(int productId, bool loadCategory = false)
         {
             var product = _products.FirstOrDefault(x => x.ProductId == productId);
             if (product != null)
@@ -58,7 +82,7 @@ namespace WebApp.Models
 
                 if (loadCategory && prod.CategoryId.HasValue)
                 {
-                    prod.Category = CategoriesRepository.GetCategoryById(prod.CategoryId.Value);
+                    prod.Category = _categoryRepository.GetCategoryById(prod.CategoryId.Value);
                 }
 
                 return prod;
@@ -68,7 +92,7 @@ namespace WebApp.Models
             return null;
         }
 
-        public static void UpdateProduct(int productId, Product product)
+        public void UpdateProduct(int productId, Product product)
         {
             if (productId != product.ProductId) return;
 
@@ -82,7 +106,7 @@ namespace WebApp.Models
             }
         }
 
-        public static void DeleteProduct(int productId)
+        public void DeleteProduct(int productId)
         {
             var product = _products.FirstOrDefault(x => x.ProductId == productId);
             if (product != null)
@@ -91,7 +115,7 @@ namespace WebApp.Models
             }
         }
 
-        public static List<Product> GetProductsByCategoryId(int categoryId)
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
         {
             var products = _products.Where(x => x.CategoryId == categoryId);
 
@@ -99,4 +123,6 @@ namespace WebApp.Models
             else return new List<Product>();
         }
     }
+
+
 }

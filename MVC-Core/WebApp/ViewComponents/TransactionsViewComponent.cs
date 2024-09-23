@@ -1,14 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Models;
+using UseCasesLayer.Interfaces.TransactionsUseCaseInterfaces;
+
 
 namespace WebApp.ViewComponents
 {
     [ViewComponent]
     public class TransactionsViewComponent:ViewComponent
     {
+        private readonly IGetTodayTransactionsUseCase getTodayTransactionsUseCase;
+
+        public TransactionsViewComponent(IGetTodayTransactionsUseCase getTodayTransactionsUseCase)
+        {
+            this.getTodayTransactionsUseCase = getTodayTransactionsUseCase;
+        }
         public IViewComponentResult Invoke(string userName)
         {
-            var transactions = TransactionsRepository.GetByDayAndCashier(userName, DateTime.Today);
+            var transactions = getTodayTransactionsUseCase.Execute(userName);
             return View(transactions);
         }
     }

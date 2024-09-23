@@ -1,14 +1,21 @@
 ﻿using EntitiesLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading.Tasks;
+using UseCasesLayer.DataStorePluginInterfaces;
 
-namespace WebApp.Models
+namespace Plugins.DataStore.InMemory
 {
-    public class TransactionsRepository
+    public class TransactionsInMemoryRepository : ITransactionsRepository
     {
-        private static List<Transaction> _transactions = new List<Transaction>();
+        private List<Transaction> _transactions = new List<Transaction>();
 
-        public static IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date) 
-        { 
-            if(string.IsNullOrWhiteSpace(cashierName))
+        public IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date)
+        {
+            if (string.IsNullOrWhiteSpace(cashierName))
             {
                 return _transactions.Where(x => x.TimeStamp.Date == date.Date);
 
@@ -21,9 +28,9 @@ namespace WebApp.Models
             }
         }
 
-        public static IEnumerable<Transaction> Search(string cashierName, DateTime startDate, DateTime endDate)
+        public IEnumerable<Transaction> Search(string cashierName, DateTime startDate, DateTime endDate)
         {
-            if(string.IsNullOrWhiteSpace(cashierName))
+            if (string.IsNullOrWhiteSpace(cashierName))
             {
                 return _transactions.Where(x =>
                     x.TimeStamp.Date >= startDate.Date && x.TimeStamp.Date <= endDate.Date.AddDays(1).Date);
@@ -31,13 +38,13 @@ namespace WebApp.Models
             else
             {
                 return _transactions.Where(x =>
-                    x.CashierName.ToLower().Contains(cashierName.ToLower())&&
+                    x.CashierName.ToLower().Contains(cashierName.ToLower()) &&
                     x.TimeStamp.Date >= startDate.Date &&
                     x.TimeStamp.Date <= endDate.Date.AddDays(1).Date);
             }
         }
 
-        public static void Add(string cashierName, int productId, string productName, double price, int beforeQty, int soldQty)
+        public void Add(string cashierName, int productId, string productName, double price, int beforeQty, int soldQty)
         {
             var transaction = new Transaction()
             {
@@ -50,10 +57,10 @@ namespace WebApp.Models
                 TimeStamp = DateTime.Now.Date
             };
 
-            if (_transactions != null && _transactions.Count()>0) 
+            if (_transactions != null && _transactions.Count() > 0)
             {
                 var maxId = _transactions.Max(x => x.TransactionId);
-                transaction.TransactionId = maxId +1;
+                transaction.TransactionId = maxId + 1;
             }
             else
             {
@@ -63,3 +70,4 @@ namespace WebApp.Models
         }
     }
 }
+
